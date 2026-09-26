@@ -247,7 +247,8 @@ app.get("/api/strategy/:symbol", async (req, res) => {
     const latestEMA21 = ema21[ema21.length - 1];
     const latestRSI = rsi[rsi.length - 1];
 
-    const currentPrice = closes[closes.length - 1];
+    // const currentPrice = closes[closes.length - 1];
+    const currentPrice = await getCurrentPrice(symbol);
 
     // ======================================
     // BUY / SELL / HOLD
@@ -638,23 +639,15 @@ app.get("/api/trades", async (req, res) => {
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => {
+    console.log("MongoDB connected successfully");
 
-    console.log(
-      "MongoDB connected successfully"
-    );
-
-    app.listen(PORT, () => {
-      console.log(
-        `Server running on http://localhost:${PORT}`
-      );
+    app.listen(process.env.PORT || 5000, () => {
+      console.log("Server started");
     });
-
   })
   .catch((error) => {
-
     console.error(
       "MongoDB connection failed:",
       error.message
     );
-
   });

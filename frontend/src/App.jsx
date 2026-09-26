@@ -13,7 +13,7 @@ import {
 
 import "./App.css";
 
-const API = "http://localhost:5000";
+const API = "";
 const symbol = "AAPL";
 
 // ==========================================
